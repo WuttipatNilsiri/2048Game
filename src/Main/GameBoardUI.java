@@ -34,7 +34,6 @@ public class GameBoardUI extends JComponent{
 		{
 			for(int y = 0; y < 4; y++)
 			{
-				//locallity 
 				tiles[y][x] = new TileUI(new Tile(0));
 				tiles[y][x].tilePos(x, y);
 				add(tiles[y][x]);
@@ -49,11 +48,13 @@ public class GameBoardUI extends JComponent{
 
 	public void paintComponent(Graphics g){
 		if (board.getState() == State.running){
+			
 			for(int x = 0; x < 4; x++){
 				for(int y = 0; y < 4; y++){
 					tiles[y][x].tile.pow = board.getTile(x, y);
 				}
 			}
+			
 			g.setColor(new Color(0xbbada0));
 			g.fillRect(0, 0, 400, 400);
 		}
