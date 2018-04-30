@@ -1,4 +1,4 @@
-package Main;
+package AI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +9,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import MODEL.GameBoard;
+
 
 public class MonteCarloAI implements Agent{
 
 	Random rand=new Random();
 	
-	int roundPlayed=0;
-	int searchDepth=100;
-	int simulation=1024;
+	int roundPlayed = 0;
+	int searchDepth = 100;
+	int simulation = 1024;
 	
 	static ExecutorService pool = Executors.newFixedThreadPool(4);
 	

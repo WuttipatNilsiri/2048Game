@@ -13,6 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import AI.Agent;
+import AI.MonteCarloAI;
+import MODEL.GameBoard;
+import MODEL.State;
+import UI.GameBoardUI;
+
 public class Main extends JFrame{
 
 	GameBoard board = new GameBoard();
@@ -40,7 +46,7 @@ public class Main extends JFrame{
 		hint.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int action=agent.makeMove(board);
+				int action = agent.makeMove(board);
 				hint.setText("Hint: "+GameBoard.NAMES[action]);
 				requestFocus();
 			}
@@ -65,11 +71,13 @@ public class Main extends JFrame{
 								} catch (Exception e) {
 									Thread.currentThread().interrupt();
 									stop = true;
-									board.setState(State.over);
+									requestFocus();
+									hint.setEnabled(true);
+									board.setState(State.over);	
 								} finally {
-								
 									repaint();
 								}
+								
 							}
 						}
 					}).start();

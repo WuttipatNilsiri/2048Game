@@ -1,4 +1,4 @@
-package Main;
+package UI;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,6 +10,8 @@ import java.util.TimerTask;
 
 import javax.swing.JComponent;
 
+import MODEL.Tile;
+
 public class TileUI extends JComponent{
 
 	Tile tile;
@@ -17,20 +19,7 @@ public class TileUI extends JComponent{
 	static final Timer timer = new Timer();
 	
 	static final Color BACKGROUND = new Color(0xBBADA0);
-	/*
-  .tile.tile-128 .tile-inner {
-    font-size: 45px; }
-  .tile.tile-256 .tile-inner {
-    font-size: 45px; }
-  .tile.tile-512 .tile-inner {
-    font-size: 45px; }
-  .tile.tile-1024 .tile-inner {
-    font-size: 35px; }
-  .tile.tile-2048 .tile-inner {
-    font-size: 35px; }
-  .tile.tile-super .tile-inner {
-  	font-size: 30px; }
-	 */
+
 	static final Color[] COLOR={
 			new Color(204, 192, 179),
 			new Color(0xEEE4DA),	//2
@@ -47,8 +36,8 @@ public class TileUI extends JComponent{
 			new Color(0x3c3a32),	//SUPER
 	};
 	
-	static final Color FONT_1_2=new Color(0x776E65);
-	static final Color FONT_OTHERWISE=new Color(0xF9F6F2);
+	static final Color FONT_1_2 = new Color(0x776E65);
+	static final Color FONT_OTHERWISE = new Color(0xF9F6F2);
 	
 	static final Color[] FONT_COLOR={
 		null,
@@ -66,7 +55,7 @@ public class TileUI extends JComponent{
 		FONT_OTHERWISE, //SUPER
 	};
 	
-	final Font _55px = new Font("SansSerif", Font.BOLD , 55);
+	final Font _55px = new Font("Dialog", Font.BOLD , 55);
 	
 	final Font _45px = _55px.deriveFont(45f);
 	final Font _35px = _55px.deriveFont(35f);

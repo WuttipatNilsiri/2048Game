@@ -1,7 +1,7 @@
-package Main;
+package MODEL;
 
 public class Tile {
-	int pow;
+	public int pow;
 	
 	public Tile(int i) {
 		pow = i;

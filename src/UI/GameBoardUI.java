@@ -1,4 +1,4 @@
-package Main;
+package UI;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
+
+import MODEL.GameBoard;
+import MODEL.State;
+import MODEL.Tile;
 
 public class GameBoardUI extends JComponent{
 

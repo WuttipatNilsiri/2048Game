@@ -1,4 +1,4 @@
-package Main;
+package LIB;
 
 public class ArraysTool {
 

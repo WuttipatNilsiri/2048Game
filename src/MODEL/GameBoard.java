@@ -1,25 +1,27 @@
-package Main;
+package MODEL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import Main.State;
+
+import LIB.ArraysTool;
+import MODEL.State;
 
 public class GameBoard {
 	int[][] board;
-	int score = 0;
+	public int score = 0;
 
 	final int SIZE = 4;
 	
 	
 	State state = State.over;
 
-	static final int UP = 0;
-	static final int DOWN = 1;
-	static final int LEFT = 2;
-	static final int RIGHT = 3;
-	static final String[] NAMES = {"up", "down", "left", "right"};
+	public static final int UP = 0;
+	public static final int DOWN = 1;
+	public static final int LEFT = 2;
+	public static final int RIGHT = 3;
+	public static final String[] NAMES = {"up", "down", "left", "right"};
 
 	ArrayList<Integer> xline = new ArrayList<>();
 	ArrayList<Integer> yline = new ArrayList<>();
@@ -35,10 +37,10 @@ public class GameBoard {
 			true,	//6
 			true,	//7
 			false,	//8
-			true,
-			true,
-			true,
-			false,
+			true,	//9
+			true,	//10
+			true,	//11
+			false,	//12
 			true,
 			false,
 			false
@@ -139,7 +141,7 @@ public class GameBoard {
 
 	
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void left(){
 		for(int y = 0; y < 4; y++){
 			int free = 0;
@@ -237,6 +239,7 @@ public class GameBoard {
 					}
 				}
 			}
+			
 			int c = getTile(0, y) == 0 ? 0 : 8;
 			c += getTile(1, y) == 0 ? 0 : 4;
 			c += getTile(2, y) == 0 ? 0 : 2;
@@ -320,7 +323,7 @@ public class GameBoard {
 		}
 		return false;
 	}
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean canDo(int index){
 		switch(index){
 		case UP: return canUp();
@@ -333,10 +336,10 @@ public class GameBoard {
 
 	public void makeMove(int index){
 		switch(index){
-		case UP:up(); break;
-		case DOWN:down(); break;
-		case LEFT:left(); break;
-		case RIGHT:right();break;
+		case UP: up(); break;
+		case DOWN: down(); break;
+		case LEFT: left(); break;
+		case RIGHT: right();break;
 		default: throw new UnsupportedOperationException();
 		}
 	}
