@@ -78,21 +78,23 @@ public class TileUI extends JComponent{
 		Graphics2D g = (Graphics2D)gp;
 		g.setColor(BACKGROUND);
 		g.fillRect(0, 0, 100, 100);
-		if(tile.getLog2()!= 0){
+		if(tile.getLog2()!= 0)
+		{
 			int index = tile.getLog2();
 			if(index >= COLOR.length) index = COLOR.length-1;;
 			g.setColor(COLOR[index]);
-//			g.setColor(COLOR[tColorScheme]);
 			g.fillRoundRect(5, 5, 90, 90, 5, 5);
 			g.setFont(FONT[index]);
 			String str = tile.getValue()+"";
 			g.setColor(index < 8 ? COLOR[0] : COLOR[1]);
-//			g.setColor(FONT_COLOR[tColorScheme]);
 			FontMetrics font = g.getFontMetrics();
 			g.drawString(str, 50 - font.stringWidth(str)/2 , 50 + (font.getAscent() - font.getDescent() + font.getLeading())/2);
-		}else{
+		}
+		else
+		{
 			g.setColor(new Color(204, 192, 179));
-			g.fillRoundRect(5, 5, 90, 90, 5, 5);
+			g.fillRoundRect
+			(5, 5, 90, 90, 5, 5);
 		}
 	}
 	

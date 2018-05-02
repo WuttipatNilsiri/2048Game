@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,12 +64,25 @@ public class Controller extends JFrame{
 		scorePanel.add(scoreLabel);
 		scorePanel.add(scoreView);
 		JButton scoreSendButton = new JButton("Send");
+		JTextField _name = new JTextField();
+		_name.setPreferredSize( new Dimension( 100, 24 ) );
+		
+		_name.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
+					_name.setText("");
+					requestFocus();
+				}	
+			}
+		});
 		
 		scoreSendButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!isSend) {
-					gc.sendMessage(""+board.score);
+					String name = _name.getText();
+					gc.sendMessage(name+" "+board.score);
 					if(board.getState().equals(State.over)) {
 						isSend = true;
 					}
@@ -74,10 +90,11 @@ public class Controller extends JFrame{
 				requestFocus();
 			}
 		});
-		
+		scorePanel.add(_name);
 		scorePanel.add(scoreSendButton);
 		final JButton hint = new JButton("Need Help?");
 		final JButton scoreBoard = new JButton("Score Board");
+		
 		scoreBoard.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -85,7 +102,7 @@ public class Controller extends JFrame{
 				 requestFocus();
 			}
 		});		
-		scorePanel.add(scoreBoard);
+		
 		
 
 		hint.addActionListener(new ActionListener(){
@@ -98,7 +115,6 @@ public class Controller extends JFrame{
 		});
 		
 		final JButton ai = new JButton("AI SOLVE");
-		
 		
 		ai.addActionListener(new ActionListener(){
 			@Override
@@ -138,8 +154,16 @@ public class Controller extends JFrame{
 		
 		topPanel.add(hint);
 		topPanel.add(ai);
-
-		addKeyListener(new KeyAdapter(){
+		topPanel.add(scoreBoard);
+		
+		
+		gameBoard.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+					requestFocus();
+			    }
+		});
+		
+		addKeyListener(new KeyAdapter() {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -177,6 +201,7 @@ public class Controller extends JFrame{
 
 			}
 		});
+		
 		add(topPanel, BorderLayout.NORTH);
 		add(scorePanel,BorderLayout.SOUTH);
 		add(gameBoard);
