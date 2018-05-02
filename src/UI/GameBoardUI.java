@@ -12,10 +12,13 @@ import javax.swing.JComponent;
 import MODEL.GameBoard;
 import MODEL.State;
 import MODEL.Tile;
+import Main.Controller;
 
 public class GameBoardUI extends JComponent{
 
 	TileUI[][] tiles = new TileUI[4][4];
+	
+	Controller ctrl;
 
 
 	GameBoard board;
@@ -29,6 +32,10 @@ public class GameBoardUI extends JComponent{
 	};
 
 	static final Color FONT_COLOR = new Color(0x776E65);
+	
+	public void addCollroller(Controller c) {
+		ctrl = c;
+	}
 
 	public GameBoardUI(GameBoard b)
 	{
@@ -68,7 +75,9 @@ public class GameBoardUI extends JComponent{
 				@Override
 				public void mousePressed(MouseEvent e) {
 					board.startGame();
+					ctrl.isSend = false;
 					repaint();
+					ctrl.repaint();
 				}
 			});
 		}

@@ -13,14 +13,18 @@ public class ScoreServer {
 	public Server server;
 	public List<Connection> connection_ls;
 	
-	public ScoreServer() throws IOException{
+	public ScoreServer() {
 		scoreLog = new ArrayList<String>(); 
 		connection_ls = new ArrayList<Connection>();
 		server = new Server();
 		server.getKryo().register(Message.class);
 		server.addListener(new ServerListner());
+	}
+	
+	public void start(int port) throws IOException {
 		server.start();
-		server.bind(54334);
+		server.bind(port);
+		System.out.println("SV Starting with " + port + " port");
 	}
 	
 	class ServerListner extends Listener {
@@ -29,14 +33,14 @@ public class ScoreServer {
 		public void connected(Connection arg0) {
 			super.connected(arg0);
 			connection_ls.add(arg0);
-			System.out.println(arg0.getID() + " : " + arg0.toString() + "has Connected");
+			System.out.println(arg0.getRemoteAddressTCP().toString() + " has Connected");
 		}
 		
 		@Override
 		public void disconnected(Connection arg0) {
 			super.disconnected(arg0);
 			connection_ls.remove(arg0);
-			System.out.println(arg0.getID() + " : " + arg0.toString() + "has Disconnected");
+			System.out.println(arg0.getRemoteAddressTCP().toString() + " has Disconnected");
 			
 		}
 		
@@ -48,13 +52,17 @@ public class ScoreServer {
 			if (arg1 instanceof Message) {
 				Message msg = (Message) arg1;
 				
+				
 				if (msg.getText().equalsIgnoreCase("REQSCORE")) {
 					for (String score : scoreLog) {
-						arg0.sendTCP(score);
+						arg0.sendTCP(new Message(score));
 					}
 				}
-				else
+				else {
+				
 					scoreLog.add(msg.getText());
+			
+				}
 			}
 		}
 	}
@@ -62,6 +70,7 @@ public class ScoreServer {
 	public static void main(String[] a) {
 		try {
 			ScoreServer _sv = new ScoreServer();
+			_sv.start(54334);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

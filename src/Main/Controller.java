@@ -7,27 +7,46 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
+
+
 import AI.Agent;
 import AI.MonteCarloAI;
+
 import MODEL.GameBoard;
 import MODEL.State;
+import SERVER.GameClient;
 import UI.GameBoardUI;
 
-public class Main extends JFrame{
+
+public class Controller extends JFrame{
+	
 
 	GameBoard board = new GameBoard();
 	boolean stop = true;
 	JTextField scoreView;
 	
-	public Main() {
+	List<String> scoreLog = new ArrayList<String>();
+	
+	public boolean isSend = false;
+	
+	public Controller() throws IOException {
 		
-		final Agent agent = new MonteCarloAI();
+		GameBoardUI gameBoard = new GameBoardUI(board);
+		gameBoard.addCollroller(this);
+		
+		GameClient gc = new GameClient();
+		
+		final Agent agent =	 new MonteCarloAI();
 		setFocusable(true);
 		setResizable(false);
 		JPanel topPanel = new JPanel();
@@ -41,8 +60,34 @@ public class Main extends JFrame{
 		scoreView.setEditable(false);
 		scorePanel.add(scoreLabel);
 		scorePanel.add(scoreView);
-		final JButton hint = new JButton("Need Help?");
+		JButton scoreSendButton = new JButton("Send");
 		
+		scoreSendButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!isSend) {
+					gc.sendMessage(""+board.score);
+					if(board.getState().equals(State.over)) {
+						isSend = true;
+					}
+				}
+				requestFocus();
+			}
+		});
+		
+		scorePanel.add(scoreSendButton);
+		final JButton hint = new JButton("Need Help?");
+		final JButton scoreBoard = new JButton("Score Board");
+		scoreBoard.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 gc.sendMessage("reqscore");
+				 requestFocus();
+			}
+		});		
+		scorePanel.add(scoreBoard);
+		
+
 		hint.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -73,11 +118,10 @@ public class Main extends JFrame{
 									stop = true;
 									requestFocus();
 									hint.setEnabled(true);
-									board.setState(State.over);	
+									board.setState(State.over);
 								} finally {
 									repaint();
 								}
-								
 							}
 						}
 					}).start();
@@ -135,13 +179,14 @@ public class Main extends JFrame{
 		});
 		add(topPanel, BorderLayout.NORTH);
 		add(scorePanel,BorderLayout.SOUTH);
-		add(new GameBoardUI(board));
+		add(gameBoard);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		pack();
 
 	}
-
+	
+	
 	public void paint(Graphics g){
 		setTitle("2048 - Score "+board.score);
 		scoreView.setText(""+board.score);
@@ -149,6 +194,12 @@ public class Main extends JFrame{
 	}
 
 	public static void main(String[] args){
-		new Main();
+	
+		try {
+			Controller ctrl = new Controller();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
