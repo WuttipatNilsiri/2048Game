@@ -14,7 +14,7 @@ import MODEL.GameBoard;
 
 public class MonteCarloAI implements Agent{
 
-	Random rand=new Random();
+	Random rand = new Random();
 	
 	int roundPlayed = 0;
 	int searchDepth = 100;
@@ -61,21 +61,6 @@ public class MonteCarloAI implements Agent{
 			 	best = i;
 			}
 		}
-		/*for(final int i:moves){
-			Future<Integer> r1=createTask(b, i);
-			Future<Integer> r2=createTask(b, i);
-			Future<Integer> r3=createTask(b, i);
-			int s=evalMove(b, i);
-			try {
-				s+=r1.get()+r2.get()+r3.get();
-			} catch (InterruptedException | ExecutionException e) {
-				e.printStackTrace();
-			}
-			if(s>bestScore){
-				bestScore=s;
-				best=i;
-			}
-		}*/
 		roundPlayed++;
 		searchDepth = roundPlayed / 10 + 100;
 	    simulation = roundPlayed / 16 + 1024;

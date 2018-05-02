@@ -31,7 +31,7 @@ public class GameBoardUI extends JComponent{
 			new Color(0xf59563)
 	};
 
-	static final Color FONT_COLOR = new Color(0x776E65);
+	static final Color FONT_COLOR = new Color(0x806E85);
 	
 	public void addCollroller(Controller c) {
 		ctrl = c;
@@ -45,6 +45,7 @@ public class GameBoardUI extends JComponent{
 		{
 			for(int y = 0; y < 4; y++)
 			{
+				//locallity
 				tiles[y][x] = new TileUI(new Tile(0));
 				tiles[y][x].tilePos(x, y);
 				add(tiles[y][x]);

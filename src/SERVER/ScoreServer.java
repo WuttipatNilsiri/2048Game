@@ -40,7 +40,7 @@ public class ScoreServer {
 		public void disconnected(Connection arg0) {
 			super.disconnected(arg0);
 			connection_ls.remove(arg0);
-			System.out.println(arg0.getRemoteAddressTCP().toString() + " has Disconnected");
+			System.out.println("SomeOne has Disconnected");
 			
 		}
 		

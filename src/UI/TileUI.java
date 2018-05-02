@@ -21,20 +21,12 @@ public class TileUI extends JComponent{
 	static final Color BACKGROUND = new Color(0xBBADA0);
 
 	static final Color[] COLOR={
-			new Color(204, 192, 179),
-			new Color(0xEEE4DA),	//2
-			new Color(0xEDE0C8),	//4
-			new Color(0xF2B179),	//8
-			new Color(0xF59563),	//16
-			new Color(0xf67c5f),	//32
-			new Color(0xf65e3b),	//64
-			new Color(0xedcf72),	//128
-			new Color(0xedcc61),	//256
-			new Color(0xedc850),	//512
-			new Color(0xedc53f),	//1024
-			new Color(0xedc22e),	//2048
-			new Color(0x3c3a32),	//SUPER
+			new Color(0x701710), new Color(0xFFE4C3), new Color(0xfff4d3),
+	        new Color(0xffdac3), new Color(0xe7b08e), new Color(0xe7bf8e),
+	        new Color(0xffc4c3), new Color(0xE7948e), new Color(0xbe7e56),
+	        new Color(0xbe5e56), new Color(0x9c3931), new Color(0x701710)
 	};
+	
 	
 	static final Color FONT_1_2 = new Color(0x776E65);
 	static final Color FONT_OTHERWISE = new Color(0xF9F6F2);
@@ -55,7 +47,7 @@ public class TileUI extends JComponent{
 		FONT_OTHERWISE, //SUPER
 	};
 	
-	final Font _55px = new Font("Dialog", Font.BOLD , 55);
+	final Font _55px = new Font("SansSerif", Font.BOLD, 55);
 	
 	final Font _45px = _55px.deriveFont(45f);
 	final Font _35px = _55px.deriveFont(35f);
@@ -87,18 +79,19 @@ public class TileUI extends JComponent{
 		g.setColor(BACKGROUND);
 		g.fillRect(0, 0, 100, 100);
 		if(tile.getLog2()!= 0){
-			int tColorScheme = tile.getLog2();
-			if(tColorScheme >= COLOR.length) tColorScheme = COLOR.length-1;
-			g.setColor(COLOR[tColorScheme]);
+			int index = tile.getLog2();
+			if(index >= COLOR.length) index = COLOR.length-1;;
+			g.setColor(COLOR[index]);
+//			g.setColor(COLOR[tColorScheme]);
 			g.fillRoundRect(5, 5, 90, 90, 5, 5);
-			
-			g.setFont(FONT[tColorScheme]);
+			g.setFont(FONT[index]);
 			String str = tile.getValue()+"";
-			g.setColor(FONT_COLOR[tColorScheme]);
+			g.setColor(index < 8 ? COLOR[0] : COLOR[1]);
+//			g.setColor(FONT_COLOR[tColorScheme]);
 			FontMetrics font = g.getFontMetrics();
-			g.drawString(str, 50 - g.getFontMetrics().stringWidth(str)/2 , 50 + (font.getAscent() - font.getDescent() + font.getLeading())/2);
+			g.drawString(str, 50 - font.stringWidth(str)/2 , 50 + (font.getAscent() - font.getDescent() + font.getLeading())/2);
 		}else{
-			g.setColor(COLOR[0]);
+			g.setColor(new Color(204, 192, 179));
 			g.fillRoundRect(5, 5, 90, 90, 5, 5);
 		}
 	}
