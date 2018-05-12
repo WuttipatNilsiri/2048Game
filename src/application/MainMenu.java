@@ -1,10 +1,15 @@
 package application;
 
+<<<<<<< HEAD
 import java.io.IOException;
 
 import Main.Controller;
 import SERVER.ScoreServer;
 import javafx.event.ActionEvent;
+=======
+import javafx.event.ActionEvent;
+import javafx.application.Platform;
+>>>>>>> 87ebecb6e8191802c380756720af3f4280ccac94
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -30,9 +35,13 @@ public class MainMenu {
 	public void handlePlay(ActionEvent event) {
 		Stage stage = new Stage();
 		try {
+<<<<<<< HEAD
 			ScoreServer _sv = new ScoreServer();
 			_sv.start(54334);
 			Controller ctrl = new Controller();
+=======
+			new GameController(stage).startGame();
+>>>>>>> 87ebecb6e8191802c380756720af3f4280ccac94
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		} catch (Exception e) {
 			e.printStackTrace();
