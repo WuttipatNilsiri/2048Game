@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="600.0" maxWidth="400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainMenu">
+   <children>
+      <ImageView fitHeight="608.0" fitWidth="408.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../libs/screen.jpg" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="600.0" prefWidth="400.0">
+         <children>
+            <ImageView fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../libs/2048.jpg" />
+               </image>
+               <VBox.margin>
+                  <Insets left="25.5" top="25.0" />
+               </VBox.margin>
+            </ImageView>
+            <Button fx:id="play" blendMode="DARKEN" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handlePlay" prefHeight="50.0" prefWidth="200.0" text="PLAY" textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets left="100.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Comic Sans MS" size="25.0" />
+               </font>
+               <graphic>
+                  <ImageView blendMode="SRC_ATOP" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../libs/play.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="leaderBoard" blendMode="DARKEN" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleLeaderBoard" prefHeight="50.0" prefWidth="200.0" text="LEADERBOARD">
+               <VBox.margin>
+                  <Insets left="100.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Comic Sans MS" size="22.0" />
+               </font>
+               <graphic>
+                  <ImageView blendMode="DARKEN" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../libs/leaderB.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="exit" blendMode="DARKEN" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="200.0" text="EXIT">
+               <VBox.margin>
+                  <Insets left="100.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Comic Sans MS" size="25.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../libs/exit.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</Pane>
