@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <graphic>
+            <ImageView fx:id="aisolver" fitHeight="100.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../libs/ai.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="200.0" layoutY="80.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <graphic>
+            <ImageView fx:id="score" fitHeight="89.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../libs/score.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="100.0" layoutY="14.0" prefHeight="60.0" prefWidth="200.0" text="SCORE" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="Comic Sans MS" size="26.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

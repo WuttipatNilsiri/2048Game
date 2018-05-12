@@ -1,6 +1,8 @@
 package SERVER;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.esotericsoftware.kryonet.*;
 
@@ -8,14 +10,13 @@ public class GameClient {
 
     
     private Client client; 
-    public GameClient() throws IOException {
-       
-        
+    List<String> scorelist = new ArrayList<String>();
+    public GameClient() {
+      
         client = new Client();
         client.addListener(new ClientLisntener() );
-        client.start();
-        client.connect(5000, "127.0.0.1", 54334);
         client.getKryo().register(Message.class);
+        client.getKryo().register(ArrayList.class);
     }
 
     class ClientLisntener extends Listener {
@@ -25,7 +26,8 @@ public class GameClient {
     		super.connected(arg0);
     		
     	}
-    	@Override
+
+		@Override
     	public void received(Connection arg0, Object arg1) {
     		// TODO Auto-generated method stub
     		super.received(arg0, arg1);
@@ -33,6 +35,13 @@ public class GameClient {
 				Message message = (Message) arg1;
 				System.out.println(message.getText());
 			}
+    		if (arg1 instanceof List) {
+    			scorelist.clear();
+    			List<String> ls = (List<String>) arg1;
+    			for (String s : ls) {
+    				scorelist.add(s);
+    			}
+    		}
     	}
     }
     
@@ -41,5 +50,13 @@ public class GameClient {
     	msg.text = text;
     	client.sendTCP(msg);
     }
+    
+    public List<String> getScoreList(){
+    	return scorelist;
+    }
+    
+    public void connect(String ip,int port) throws IOException {
+    	client.start();
+        client.connect(5000, ip, port);
+    }
 }
-
