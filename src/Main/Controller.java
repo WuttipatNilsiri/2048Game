@@ -49,6 +49,8 @@ public class Controller extends JFrame{
 		
 		GameClient gc = new GameClient();
 		
+		gc.connect("127.0.0.1", 54334);
+		
 		final Agent agent =	 new MonteCarloAI();
 		setFocusable(true);
 		setResizable(false);

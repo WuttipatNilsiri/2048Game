@@ -17,8 +17,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import SERVER.GameClient;
 
 class GameController {
     private final HashMap<Tile, TileView> visibleTileViews = new HashMap<>();
@@ -28,7 +31,15 @@ class GameController {
     private ParallelTransition activeTransition;
     private boolean sawEndScreen = false;
     
+    GameClient gc;
+    
     private final EventHandler<KeyEvent> gameEventHandler = (keyEvent) -> {
+    	
+//    	gc.sendMessage("REQSCORELIST");
+//    	for (String s : gc.getScoreList()) {
+//    		System.out.println(s);
+//    	}
+    	
         switch (keyEvent.getCode()) {
             case UP:
                 runMove(Game.Move.Up);
@@ -50,6 +61,9 @@ class GameController {
     }
 
     void startGame() {
+    	
+//    	System.out.println(gc.toString());
+    	
         final ArrayList<Tile> initialTiles = game.addInitialTiles();
         ArrayList<Transition> creationTransitions = new ArrayList<>();
 
@@ -76,6 +90,9 @@ class GameController {
         primaryStage.setScene(scene);
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, gameEventHandler);
         primaryStage.show();
+        
+        
+        
     }
 
     private void runMove(Game.Move move) {
@@ -217,4 +234,7 @@ class GameController {
         return backgroundPane;
     }
 
+    public void addGameClient(GameClient gc) {
+    	this.gc = gc;
+    }
 }
