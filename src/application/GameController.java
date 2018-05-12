@@ -43,7 +43,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-class GameController {
+public class GameController {
     private final HashMap<Tile, TileView> visibleTileViews = new HashMap<>();
     private final Pane board = new Pane();
     private Stage primaryStage;

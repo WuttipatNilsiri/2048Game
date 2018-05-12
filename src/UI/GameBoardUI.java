@@ -1,27 +1,51 @@
 package UI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import MODEL.GameBoard;
 import MODEL.State;
 import MODEL.Tile;
 import Main.Controller;
+import SERVER.GameClient;
+import application.Config;
+import application.GameController;
+import javafx.animation.FadeTransition;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class GameBoardUI extends JComponent{
 
 	TileUI[][] tiles = new TileUI[4][4];
 	
 	Controller ctrl;
-
-
+	private final Pane boardP = new Pane();
+	private boolean sawEndScreen = false;
 	GameBoard board;
+	GameClient gc = new GameClient();
 
 	Color[] color = {
 			new Color(204, 192, 179),
@@ -71,16 +95,36 @@ public class GameBoardUI extends JComponent{
 			g.fillRect(0, 0, 400, 400);
 		}
 		if (board.getState() == State.over) {
-			System.out.println("Click to restart");
-			addMouseListener(new MouseAdapter() {
+			JFrame frame = new JFrame("GAME OVER :)");
+			final JButton retry = new JButton("Try Again");
+			final JButton score = new JButton("Send Score");
+			score.addActionListener(new ActionListener(){
 				@Override
-				public void mousePressed(MouseEvent e) {
-					board.startGame();
-					ctrl.isSend = false;
-					repaint();
-					ctrl.repaint();
+				public void actionPerformed(ActionEvent e) {
+					 gc.sendMessage("reqscore");
+					 requestFocus();
+				}
+			});	
+			retry.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						board.startGame();
+						ctrl.isSend = false;
+						repaint();
+						ctrl.repaint();
+						frame.setVisible(false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			});
+			frame.add(score, BorderLayout.EAST);
+			frame.add(retry, BorderLayout.WEST);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.pack();
+			frame.setVisible(true);
 		}
 	}
 }
