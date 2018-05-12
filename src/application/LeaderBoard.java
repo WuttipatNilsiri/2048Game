@@ -1,5 +1,9 @@
 package application;
 
+import java.io.IOException;
+import java.util.List;
+
+import SERVER.GameClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,14 +19,39 @@ public class LeaderBoard {
 	@FXML
 	Button back;
 	@FXML
-	ListView listView;
+	ListView<String> listView;
+	
+	
+	
+	GameClient gc = MainMenu.getClient(); 
+	
+	
 	
 	@FXML
 	public void initialize() {
+		System.out.println("leader initialize");
+		List<String> ls = gc.getScoreList();
+		System.out.println(ls.isEmpty());
+		for (String s : ls) {
+			System.out.println(s);
+			listView.getItems().add(s);
+		}
+		System.out.println("---------------------------");
 		
+//		System.out.println("asdsdLeaderBoard gc address : "+gc.toString());
+//		gc.sendMessage("REQSCORELIST");
+//		for (String s : gc.getScoreList()) {
+//			System.out.println(s);
+//		}
+//		gc.sendMessage("REQSCORE");
+		
+		
+//		listView.getItems().addAll(gc.getScoreList());
 	}
 	
 	public void handleBack(ActionEvent event) {
+		
+		
 		try {
 			Stage stage = new Stage();
 			Parent root = (Parent) FXMLLoader.load(getClass().getResource("MainMenuUI.fxml"));
@@ -39,4 +68,9 @@ public class LeaderBoard {
 	public void handleBoard(ActionEvent event) {
 		System.out.println("leader initialize");
 	}
+	
+//	public void addGameClient(GameClient gc) {
+//    	this.gc = gc;
+//    	System.out.println("LeaderBoard gc address : "+gc.toString());
+//    }
 }

@@ -1,24 +1,47 @@
 package application;
 
-import javafx.animation.*;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.KeyAdapter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import AI.Agent;
+import AI.MonteCarloAI;
+import SERVER.GameClient;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 class GameController {
     private final HashMap<Tile, TileView> visibleTileViews = new HashMap<>();
@@ -27,8 +50,21 @@ class GameController {
     private Game game = new Game();
     private ParallelTransition activeTransition;
     private boolean sawEndScreen = false;
+    boolean stop = true;
+	JTextField scoreView;
+	List<String> scoreLog = new ArrayList<String>();
+	
+	public boolean isSend = false;
+    
+    GameClient gc;
     
     private final EventHandler<KeyEvent> gameEventHandler = (keyEvent) -> {
+    	
+//    	gc.sendMessage("REQSCORELIST");
+//    	for (String s : gc.getScoreList()) {
+//    		System.out.println(s);
+//    	}
+    	
         switch (keyEvent.getCode()) {
             case UP:
                 runMove(Game.Move.Up);
@@ -50,6 +86,9 @@ class GameController {
     }
 
     void startGame() {
+    	
+//    	System.out.println(gc.toString());
+    	
         final ArrayList<Tile> initialTiles = game.addInitialTiles();
         ArrayList<Transition> creationTransitions = new ArrayList<>();
 
@@ -70,12 +109,26 @@ class GameController {
         root.getChildren().add(buildBackground());
         root.getChildren().add(board);
         
-        Scene scene = new Scene(root, Config.BOARD_PIXEL_LENGTH, Config.BOARD_PIXEL_LENGTH + 100);
+        
+        
+        Scene scene = new Scene(root, Config.BOARD_PIXEL_LENGTH, Config.BOARD_PIXEL_LENGTH);
         primaryStage.setTitle("2048");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, gameEventHandler);
         primaryStage.show();
+        
+        
+        Stage stage = new Stage();
+        try {
+			Parent root2 = (Parent) FXMLLoader.load(getClass().getResource("ButtonManUI.fxml"));
+			Scene scene2 = new Scene(root2);
+			stage.setScene(scene2);
+			stage.sizeToScene();
+			stage.show();
+		} catch(Exception e) {
+			System.out.println("Exception creating scene: " + e.getMessage());
+		}
     }
 
     private void runMove(Game.Move move) {
@@ -214,7 +267,11 @@ class GameController {
                 backgroundPane.getChildren().add(r);
             }
         }
+        
         return backgroundPane;
     }
 
+    public void addGameClient(GameClient gc) {
+    	this.gc = gc;
+    }
 }

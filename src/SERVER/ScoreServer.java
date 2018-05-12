@@ -18,6 +18,7 @@ public class ScoreServer {
 		connection_ls = new ArrayList<Connection>();
 		server = new Server();
 		server.getKryo().register(Message.class);
+		server.getKryo().register(ArrayList.class);
 		server.addListener(new ServerListner());
 	}
 	
@@ -57,6 +58,11 @@ public class ScoreServer {
 					for (String score : scoreLog) {
 						arg0.sendTCP(new Message(score));
 					}
+				}
+				else if (msg.getText().equalsIgnoreCase("REQSCORELIST")) {
+					List<String> listtosend = new ArrayList<String>();
+					listtosend.addAll(scoreLog);
+					arg0.sendTCP(listtosend);
 				}
 				else {
 				
