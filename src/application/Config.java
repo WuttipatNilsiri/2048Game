@@ -3,7 +3,7 @@ package application;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-class Config {
+public class Config {
 
     static final boolean QUICK_MODE = false;
 

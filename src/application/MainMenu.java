@@ -24,6 +24,7 @@ public class MainMenu {
 	GameController gameController = new GameController(stage);
 	LeaderBoard ld = new LeaderBoard();
 	
+	
 	static GameClient gc;
 
 	@FXML
@@ -59,7 +60,8 @@ public class MainMenu {
 		try {
 			ScoreServer _sv = new ScoreServer();
 			_sv.start(54334);
-			new GameController(stage).startGame();
+//			new GameController(stage).startGame();
+			Controller ctrl = new Controller();
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		} catch (Exception e) {
 			e.printStackTrace();
