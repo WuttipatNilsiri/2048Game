@@ -1,5 +1,9 @@
 package application;
 
+import java.io.IOException;
+
+import Main.Controller;
+import SERVER.ScoreServer;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -53,7 +57,9 @@ public class MainMenu {
 	public void handlePlay(ActionEvent event) {
 		
 		try {
-			gameController.startGame();
+			ScoreServer _sv = new ScoreServer();
+			_sv.start(54334);
+			new GameController(stage).startGame();
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		} catch (Exception e) {
 			e.printStackTrace();
