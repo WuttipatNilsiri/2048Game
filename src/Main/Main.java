@@ -14,11 +14,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		try {
-			Controller ctrl = new Controller();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Controller ctrl = new Controller();
 		
 	}
 }
