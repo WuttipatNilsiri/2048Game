@@ -58,8 +58,9 @@ public class MainMenu {
 	public void handlePlay(ActionEvent event) {
 		
 		try {
-			ScoreServer _sv = new ScoreServer();
-			_sv.start(54334);
+
+
+
 //			new GameController(stage).startGame();
 			Controller ctrl = new Controller();
 			((Node)(event.getSource())).getScene().getWindow().hide();

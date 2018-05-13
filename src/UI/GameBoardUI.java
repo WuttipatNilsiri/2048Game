@@ -96,13 +96,16 @@ public class GameBoardUI extends JComponent{
 		}
 		if (board.getState() == State.over) {
 			JFrame frame = new JFrame("GAME OVER :)");
+
+			frame.setPreferredSize(new Dimension(200, 75));
 			final JButton retry = new JButton("Try Again");
-			final JButton score = new JButton("Send Score");
-			score.addActionListener(new ActionListener(){
+		
+			final JButton quit = new JButton("quit");
+			quit.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					 gc.sendMessage("reqscore");
-					 requestFocus();
+					System.exit(1);
+
 				}
 			});	
 			retry.addActionListener(new ActionListener() {
@@ -120,10 +123,13 @@ public class GameBoardUI extends JComponent{
 					}
 				}
 			});
-			frame.add(score, BorderLayout.EAST);
+
+			frame.add(quit, BorderLayout.EAST);
 			frame.add(retry, BorderLayout.WEST);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.pack();
+			frame.setResizable(false);
+
 			frame.setVisible(true);
 		}
 	}

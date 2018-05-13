@@ -10,11 +10,13 @@ import com.esotericsoftware.kryonet.*;
 public class ScoreServer {
 	
 	public List<String> scoreLog;
+	public Map<String,String> scoreLogMapping;
 	public Server server;
 	public List<Connection> connection_ls;
 	
 	public ScoreServer() {
-		scoreLog = new ArrayList<String>(); 
+		scoreLog = new ArrayList<String>();
+		scoreLogMapping = new HashMap<String,String>();
 		connection_ls = new ArrayList<Connection>();
 		server = new Server();
 		server.getKryo().register(Message.class);
@@ -61,12 +63,26 @@ public class ScoreServer {
 				}
 				else if (msg.getText().equalsIgnoreCase("REQSCORELIST")) {
 					List<String> listtosend = new ArrayList<String>();
-					listtosend.addAll(scoreLog);
+
+					for (String s : scoreLogMapping.keySet()) {
+						listtosend.add(s + " Score: " + scoreLogMapping.get(s));
+					}
+//					listtosend.addAll(scoreLog);
+
 					arg0.sendTCP(listtosend);
 				}
 				else {
-				
-					scoreLog.add(msg.getText());
+					String[] s = msg.getText().split(" ");
+					String name = s[0];
+					String score = s[1];
+					if (scoreLogMapping.containsKey(name)) {
+						if (Integer.parseInt(scoreLogMapping.get(name)) < Integer.parseInt(score)) {
+							scoreLogMapping.put(name, score);
+						}
+					}
+					else
+						scoreLogMapping.put(name, score);
+//					scoreLog.add(msg.getText());
 			
 				}
 			}

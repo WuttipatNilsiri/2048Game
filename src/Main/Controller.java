@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -26,11 +25,15 @@ import AI.Agent;
 import AI.MonteCarloAI;
 
 import MODEL.GameBoard;
+import MODEL.ScoreDataCom;
 import MODEL.State;
 import SERVER.GameClient;
 import UI.GameBoardUI;
-import application.Main;
-import javafx.stage.Stage;
+
+import UI.LeaderBoardUI;
+
+
+
 
 
 public class Controller extends JFrame{
@@ -39,7 +42,7 @@ public class Controller extends JFrame{
 	GameBoard board = new GameBoard();
 	boolean stop = true;
 	JTextField scoreView;
-	Stage stage = new Stage();
+
 	
 	List<String> scoreLog = new ArrayList<String>();
 	
@@ -99,22 +102,43 @@ public class Controller extends JFrame{
 		scorePanel.add(scoreSendButton);
 		final JButton hint = new JButton("Need Help?");
 		final JButton scoreBoard = new JButton("Score Board");
-		final JButton back = new JButton("Back to Main");
+
+//		final JButton back = new JButton("Back to Main");
 		
-		back.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Main main = new Main();
-				main.start(stage);
-			}
-		});
+//		back.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				Main main = new Main();
+//				main.start(stage);
+//			}
+//		});
+
 		
 		scoreBoard.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 gc.sendMessage("reqscore");
-				 requestFocus();
+				gc.sendMessage("reqscorelist");
+				List<String> list = gc.getScoreList();
+				LeaderBoardUI ld = new LeaderBoardUI();
+				list.sort(new ScoreDataCom());
+				ld.addAll(list);
+				ld.init();
+//				gc.sendMessage("REQSCORELIST");
+//		        try {
+//		        	Parent root = (Parent) FXMLLoader.load(getClass().getResource("LeaderBoardUI.fxml"));
+//					Scene scene = new Scene(root);
+//					Stage stage = new Stage();
+//					stage.setScene(scene);
+//					stage.sizeToScene();
+//					stage.show();
+////					((Node)(e.getSource())).getScene().getWindow().hide();
+//		        }
+//		        catch(Exception ex) {
+//					System.out.println("Exception creating scene: " + ex.getMessage());
+//				}
+				 //gc.sendMessage("reqscore");
+				 //requestFocus();
 			}
 		});		
 		
@@ -170,7 +194,9 @@ public class Controller extends JFrame{
 		topPanel.add(hint);
 		topPanel.add(ai);
 		topPanel.add(scoreBoard);
-		topPanel.add(back);
+
+//		topPanel.add(back);
+
 		
 		
 		gameBoard.addMouseListener(new MouseAdapter() {

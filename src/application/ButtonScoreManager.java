@@ -1,3 +1,4 @@
+
 package application;
 
 import javafx.event.ActionEvent;
@@ -31,3 +32,4 @@ public class ButtonScoreManager {
 		
 	}
 }
+
