@@ -63,10 +63,12 @@ public class ScoreServer {
 				}
 				else if (msg.getText().equalsIgnoreCase("REQSCORELIST")) {
 					List<String> listtosend = new ArrayList<String>();
+
 					for (String s : scoreLogMapping.keySet()) {
 						listtosend.add(s + " Score: " + scoreLogMapping.get(s));
 					}
 //					listtosend.addAll(scoreLog);
+
 					arg0.sendTCP(listtosend);
 				}
 				else {

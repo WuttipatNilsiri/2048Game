@@ -96,6 +96,7 @@ public class GameBoardUI extends JComponent{
 		}
 		if (board.getState() == State.over) {
 			JFrame frame = new JFrame("GAME OVER :)");
+
 			frame.setPreferredSize(new Dimension(200, 75));
 			final JButton retry = new JButton("Try Again");
 		
@@ -104,6 +105,7 @@ public class GameBoardUI extends JComponent{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.exit(1);
+
 				}
 			});	
 			retry.addActionListener(new ActionListener() {
@@ -121,11 +123,13 @@ public class GameBoardUI extends JComponent{
 					}
 				}
 			});
+
 			frame.add(quit, BorderLayout.EAST);
 			frame.add(retry, BorderLayout.WEST);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.pack();
 			frame.setResizable(false);
+
 			frame.setVisible(true);
 		}
 	}

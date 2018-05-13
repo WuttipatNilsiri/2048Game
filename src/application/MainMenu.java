@@ -59,6 +59,8 @@ public class MainMenu {
 		
 		try {
 
+
+
 //			new GameController(stage).startGame();
 			Controller ctrl = new Controller();
 			((Node)(event.getSource())).getScene().getWindow().hide();

@@ -29,7 +29,9 @@ import MODEL.ScoreDataCom;
 import MODEL.State;
 import SERVER.GameClient;
 import UI.GameBoardUI;
+
 import UI.LeaderBoardUI;
+
 
 
 
@@ -40,7 +42,7 @@ public class Controller extends JFrame{
 	GameBoard board = new GameBoard();
 	boolean stop = true;
 	JTextField scoreView;
-//	Stage stage = new Stage();
+
 	
 	List<String> scoreLog = new ArrayList<String>();
 	
@@ -100,6 +102,7 @@ public class Controller extends JFrame{
 		scorePanel.add(scoreSendButton);
 		final JButton hint = new JButton("Need Help?");
 		final JButton scoreBoard = new JButton("Score Board");
+
 //		final JButton back = new JButton("Back to Main");
 		
 //		back.addActionListener(new ActionListener() {
@@ -110,6 +113,7 @@ public class Controller extends JFrame{
 //				main.start(stage);
 //			}
 //		});
+
 		
 		scoreBoard.addActionListener(new ActionListener(){
 			@Override
@@ -190,7 +194,9 @@ public class Controller extends JFrame{
 		topPanel.add(hint);
 		topPanel.add(ai);
 		topPanel.add(scoreBoard);
+
 //		topPanel.add(back);
+
 		
 		
 		gameBoard.addMouseListener(new MouseAdapter() {
