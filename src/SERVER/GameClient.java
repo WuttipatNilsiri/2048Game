@@ -60,4 +60,3 @@ public class GameClient {
         client.connect(5000, ip, port);
     }
 }
-

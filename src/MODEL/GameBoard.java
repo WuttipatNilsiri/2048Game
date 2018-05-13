@@ -98,49 +98,10 @@ public class GameBoard {
 		putTile(x, y, rand.nextInt(10) == 0 ? 2 : 1);
 	}
 
-
-	//	public void moveLogic(int countFrom,int countDes,int xIncr,int yIncr) {
-	//		for (int i = 0; i < 4; i++) {
-	//			int free = countFrom;
-	//			int prev = 0;
-	//			// countFrom = -3 => 1
-	//			// countFrom = 0 => 4
-	//			// up / down x,y xIncr = 0
-	//			// left / right y,x
-	//			for (int j = countFrom; j < countDes;j++ ) {
-	//				int index = Math.abs(j);
-	//				int val = -1;
-	//				int x = -1;
-	//				int y = -1;
-	//				
-	//				if (xIncr == 0) {
-	//					val = getTile(i,index);
-	//					x = i;
-	//					y = free + yIncr;
-	//				}
-	//				if (yIncr == 0) {
-	//					val = getTile(index,i);
-	//					x = free + xIncr;
-	//					y = i;
-	//				}
-	//				
-	//				if (prev == val) {
-	//					score+=1<<(val+1);
-	//					putTile(x,y,val+1);
-	//				}
-	//				else
-	//					putTile(x,y,val+1);
-	//					
-	//				
-	//				
-	//			}
-	//			
-	//		}
-	//	}
 	
 
 	
-
+//LOGIC ZONE//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void left(){
 		for(int y = 0; y < 4; y++){

@@ -1,5 +1,9 @@
 package application;
 
+import java.io.IOException;
+
+import Main.Controller;
+import SERVER.ScoreServer;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -19,6 +23,7 @@ public class MainMenu {
 	Stage stage = new Stage();
 	GameController gameController = new GameController(stage);
 	LeaderBoard ld = new LeaderBoard();
+	
 	
 	static GameClient gc;
 
@@ -53,7 +58,9 @@ public class MainMenu {
 	public void handlePlay(ActionEvent event) {
 		
 		try {
-			gameController.startGame();
+
+//			new GameController(stage).startGame();
+			Controller ctrl = new Controller();
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		} catch (Exception e) {
 			e.printStackTrace();
