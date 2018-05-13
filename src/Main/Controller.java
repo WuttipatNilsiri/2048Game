@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -45,14 +46,14 @@ public class Controller extends JFrame{
 	
 	public boolean isSend = false;
 	
-	public Controller() throws IOException {
+	public Controller() {
 		
 		GameBoardUI gameBoard = new GameBoardUI(board);
 		gameBoard.addCollroller(this);
 		
 		GameClient gc = new GameClient();
 		
-		gc.connect("127.0.0.1", 54334);
+//		gc.connect("127.0.0.1", 54334);
 		
 		final Agent agent =	 new MonteCarloAI();
 		setFocusable(true);
@@ -60,9 +61,9 @@ public class Controller extends JFrame{
 		JPanel topPanel = new JPanel();
 		JPanel scorePanel = new JPanel();
 		scoreView = new JTextField();
-		JTextField scoreLabel = new JTextField();
+		JLabel scoreLabel = new JLabel();
 		scoreLabel.setText("Score");
-		scoreLabel.setEditable(false);
+//		scoreLabel.setEditable(false);
 		scoreView.setHorizontalAlignment(JTextField.RIGHT);
 		scoreView.setPreferredSize( new Dimension( 100, 24 ) );
 		scoreView.setEditable(false);
@@ -242,7 +243,45 @@ public class Controller extends JFrame{
 		});
 		
 		add(topPanel, BorderLayout.NORTH);
-		add(scorePanel,BorderLayout.SOUTH);
+		JPanel ippanel = new JPanel();
+		JTextField iptext = new JTextField();
+		JTextField connectResult = new JTextField();
+		connectResult.setText("");
+		connectResult.setPreferredSize( new Dimension( 100, 24 ) );
+		connectResult.setEditable(false);
+		iptext.setPreferredSize( new Dimension( 100, 24 ) );
+		JButton button = new JButton("Connect");
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					gc.connect(iptext.getText(), 54334);
+					connectResult.setText("OK");
+				}
+				catch (IOException ex)  {
+					JFrame error = new JFrame("ERROR");
+					JPanel text = new JPanel();
+					JLabel textlable = new JLabel();
+					textlable.setText(ex.getMessage());
+					textlable.setPreferredSize(new Dimension(250, 50));
+					text.add(textlable);
+					error.add(text);
+					error.setVisible(true);
+					error.pack();
+				}
+				requestFocus();
+			}
+			
+		});
+		ippanel.add(iptext);
+		ippanel.add(button);
+		ippanel.add(connectResult,BorderLayout.SOUTH);
+		JPanel south = new JPanel();
+		south.setPreferredSize(new Dimension(100, 100));
+		south.add(scorePanel,BorderLayout.NORTH);
+		south.add(ippanel, BorderLayout.CENTER);
+		add(south, BorderLayout.SOUTH);
 		add(gameBoard);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -259,11 +298,9 @@ public class Controller extends JFrame{
 
 	public static void main(String[] args){
 	
-		try {
+		
 			Controller ctrl = new Controller();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 		
 	}
 }
