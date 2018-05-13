@@ -42,7 +42,7 @@ public class GameBoardUI extends JComponent{
 	TileUI[][] tiles = new TileUI[4][4];
 	
 	Controller ctrl;
-	private final Pane boardP = new Pane();
+//	private final Pane boardP = new Pane();
 	private boolean sawEndScreen = false;
 	GameBoard board;
 	GameClient gc = new GameClient();
@@ -95,42 +95,44 @@ public class GameBoardUI extends JComponent{
 			g.fillRect(0, 0, 400, 400);
 		}
 		if (board.getState() == State.over) {
-			JFrame frame = new JFrame("GAME OVER :)");
 
-			frame.setPreferredSize(new Dimension(200, 75));
-			final JButton retry = new JButton("Try Again");
-		
-			final JButton quit = new JButton("quit");
-			quit.addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.exit(1);
+			if (!sawEndScreen) {
+				JFrame frame = new JFrame("GAME OVER :)");
+				frame.setPreferredSize(new Dimension(200, 75));
+				final JButton retry = new JButton("Try Again");
 
-				}
-			});	
-			retry.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						board.startGame();
-						ctrl.isSend = false;
-						repaint();
-						ctrl.repaint();
-						frame.setVisible(false);
-					} catch (Exception e) {
-						e.printStackTrace();
+				final JButton quit = new JButton("quit");
+				quit.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.exit(1);
 					}
-				}
-			});
+				});	
+				retry.addActionListener(new ActionListener() {
 
-			frame.add(quit, BorderLayout.EAST);
-			frame.add(retry, BorderLayout.WEST);
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.pack();
-			frame.setResizable(false);
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							board.startGame();
+							ctrl.isSend = false;
+							repaint();
+							ctrl.repaint();
+							frame.setVisible(false);
+							sawEndScreen = false;
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				frame.add(quit, BorderLayout.EAST);
+				frame.add(retry, BorderLayout.WEST);
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.pack();
+				frame.setResizable(false);
+				frame.setVisible(true);
+				sawEndScreen = true;
+			}
 
-			frame.setVisible(true);
 		}
 	}
 }
