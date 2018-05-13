@@ -32,8 +32,6 @@ import UI.GameBoardUI;
 import UI.LeaderBoardUI;
 
 
-
-
 public class Controller extends JFrame{
 	
 
