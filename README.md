@@ -4,7 +4,7 @@
 
 ## Design 
 
-### Domain Model
+### Domain Model (For who lazy to read UML)
 <br><img src="https://i.imgur.com/7g7oiWw.png"><br>
 
 ## Function 
