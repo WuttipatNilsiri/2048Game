@@ -10,7 +10,7 @@
 ## Function 
 0. Play 2048 Game
 1. Able to connect to Server (if exist) by use IP of that and Load/Send Scores between Server
-2. AI Solve (Monte Carlo Algorithm) Let AI play or give hint for your
+2. AI Solve (Monte Carlo Algorithm) Let AI play or give hint for you
 
 ## Knowledge that we use 
 * **Pattern** - Strategy pattern, State
