@@ -95,6 +95,7 @@ public class GameBoardUI extends JComponent{
 			g.fillRect(0, 0, 400, 400);
 		}
 		if (board.getState() == State.over) {
+
 			if (!sawEndScreen) {
 				JFrame frame = new JFrame("GAME OVER :)");
 				frame.setPreferredSize(new Dimension(200, 75));
@@ -131,6 +132,7 @@ public class GameBoardUI extends JComponent{
 				frame.setVisible(true);
 				sawEndScreen = true;
 			}
+
 		}
 	}
 }
