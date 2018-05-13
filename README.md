@@ -16,6 +16,7 @@
 * **Pattern** - Strategy pattern, State
 * **Graphical UI** - JavaSwing
 * **Server** - Kyronet
+* **MultiThreading** - TheadPool
 ## Developers 
 1. Wuttipat Nilsiri 5910545850
 2. Poorin
