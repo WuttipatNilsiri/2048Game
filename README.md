@@ -5,6 +5,9 @@ merge and set stay at size that we move
 
 ## Design 
 
+### Domain Model
+<br><img src="https://i.imgur.com/7g7oiWw.png"><br>
+
 ## Function 
 0. Play 2048 Game
 1. Able to connect to Server (if exist) by use IP of that and Load or Send Scores between Server
