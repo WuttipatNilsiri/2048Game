@@ -1,5 +1,6 @@
 package UI;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
 
@@ -25,8 +26,13 @@ public class LeaderBoardUI extends JFrame {
 	
 	public void init() {
 		JPanel panel = new JPanel();
-		list.setPreferredSize(new Dimension(200,600));
-		panel.add(list);
+		panel.setPreferredSize(new Dimension(200,550));
+		list.setPreferredSize(new Dimension(200,500));
+		JLabel label = new JLabel("Score Board");
+		setTitle("Score Board");
+		label.setPreferredSize(new Dimension(200,50));
+		panel.add(label,BorderLayout.NORTH);
+		panel.add(list,BorderLayout.SOUTH);
 		add(panel);
 		setVisible(true);
 		setResizable(false);

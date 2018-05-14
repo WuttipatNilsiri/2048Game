@@ -72,6 +72,7 @@ public class Controller extends JFrame{
 		scorePanel.add(scoreLabel);
 		scorePanel.add(scoreView);
 		JButton scoreSendButton = new JButton("Send");
+		scoreSendButton.setEnabled(false);
 		JTextField _name = new JTextField();
 		_name.setPreferredSize( new Dimension( 100, 24 ) );
 		
@@ -102,7 +103,7 @@ public class Controller extends JFrame{
 		scorePanel.add(scoreSendButton);
 		final JButton hint = new JButton("Need Help?");
 		final JButton scoreBoard = new JButton("Score Board");
-
+		scoreBoard.setEnabled(false);
 //		final JButton back = new JButton("Back to Main");
 		
 //		back.addActionListener(new ActionListener() {
@@ -260,6 +261,8 @@ public class Controller extends JFrame{
 				try {
 					gc.connect(iptext.getText(), 54334);
 					connectResult.setText("OK");
+					scoreBoard.setEnabled(true);
+					scoreSendButton.setEnabled(true);
 				}
 				catch (IOException ex)  {
 					JFrame error = new JFrame("ERROR");
@@ -271,6 +274,8 @@ public class Controller extends JFrame{
 					error.add(text);
 					error.setVisible(true);
 					error.pack();
+					scoreBoard.setEnabled(false);
+					scoreSendButton.setEnabled(false);
 				}
 				requestFocus();
 			}
