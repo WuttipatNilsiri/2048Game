@@ -2,11 +2,11 @@ package AI;
 
 import MODEL.GameBoard;
 
-public interface Agent {
+public interface Algorithm {
 	/**
 	 * Make Move form @param b (GameBoard)
 	 * @param b
 	 * @return move : int
 	 */
-	int makeMove(GameBoard b);
+	public int makeMove(GameBoard b);
 }

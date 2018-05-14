@@ -130,6 +130,7 @@ public class GameBoardUI extends JComponent{
 						}
 					}
 				});
+				
 				frame.add(quit, BorderLayout.EAST);
 				frame.add(retry, BorderLayout.WEST);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

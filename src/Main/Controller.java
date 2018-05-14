@@ -19,10 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-
-
+import AI.AI;
 import AI.Agent;
+import AI.MonteCarlo;
 import AI.MonteCarloAI;
 
 import MODEL.GameBoard;
@@ -37,12 +36,15 @@ import UI.LeaderBoardUI;
 public class Controller extends JFrame{
 	
 
-	GameBoard board = new GameBoard();
-	boolean stop = true;
-	JTextField scoreView;
+	private GameBoard board = new GameBoard();
+	private boolean stop = true;
+	private JTextField scoreView;
 
 	
-	List<String> scoreLog = new ArrayList<String>();
+//	List<String> scoreLog = new ArrayList<String>();
+	private LeaderBoardUI ld;
+	
+	private GameClient  gc;
 	
 	public boolean isSend = false;
 	/**
@@ -52,12 +54,15 @@ public class Controller extends JFrame{
 		
 		GameBoardUI gameBoard = new GameBoardUI(board);
 		gameBoard.addCollroller(this);
+		ld = new LeaderBoardUI();
+		gc = new GameClient();
+		ld.init();
 		
-		GameClient gc = new GameClient();
+		
 		
 //		gc.connect("127.0.0.1", 54334);
 		
-		final Agent agent =	 new MonteCarloAI();
+		final AI ai = new AI(new MonteCarlo());
 		setFocusable(true);
 		setResizable(false);
 		JPanel topPanel = new JPanel();
@@ -96,7 +101,17 @@ public class Controller extends JFrame{
 						isSend = true;
 					}
 				}
+				gc.sendMessage("reqscorelist");
+				try {
+					Thread.sleep(500);
+					//Wait for Score Arrive
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				List<String> list = gc.getScoreList();	
+				ld.addAll(list);
 				requestFocus();
+				
 			}
 		});
 		scorePanel.add(_name);
@@ -119,12 +134,15 @@ public class Controller extends JFrame{
 		scoreBoard.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gc.sendMessage("reqscorelist");
-				List<String> list = gc.getScoreList();
-				LeaderBoardUI ld = new LeaderBoardUI();
-				list.sort(new ScoreDataCom());
-				ld.addAll(list);
-				ld.init();
+//				gc.sendMessage("reqscorelist");
+//				List<String> list = gc.getScoreList();
+////				LeaderBoardUI ld = new LeaderBoardUI();
+//				if (list.size() > 1) {
+//					list.sort(new ScoreDataCom());
+//				}
+//				ld.addAll(list);
+				ld.setVisible(true);
+				
 //				gc.sendMessage("REQSCORELIST");
 //		        try {
 //		        	Parent root = (Parent) FXMLLoader.load(getClass().getResource("LeaderBoardUI.fxml"));
@@ -148,15 +166,15 @@ public class Controller extends JFrame{
 		hint.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int action = agent.makeMove(board);
+				int action = ai.makeMove(board);
 				hint.setText("Hint: "+GameBoard.NAMES[action]);
 				requestFocus();
 			}
 		});
 		
-		final JButton ai = new JButton("AI SOLVE");
+		final JButton airun = new JButton("AI SOLVE");
 		
-		ai.addActionListener(new ActionListener(){
+		airun.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(stop){
@@ -166,7 +184,7 @@ public class Controller extends JFrame{
 						public void run() {
 							while(!stop){
 								try {
-									int r = agent.makeMove(board);
+									int r = ai.makeMove(board);
 									board.makeMove(r);
 									board.generateRandomly();
 								} catch (Exception e) {
@@ -193,7 +211,7 @@ public class Controller extends JFrame{
 		});
 		
 		topPanel.add(hint);
-		topPanel.add(ai);
+		topPanel.add(airun);
 		topPanel.add(scoreBoard);
 
 //		topPanel.add(back);
@@ -263,6 +281,15 @@ public class Controller extends JFrame{
 					connectResult.setText("OK");
 					scoreBoard.setEnabled(true);
 					scoreSendButton.setEnabled(true);
+					gc.sendMessage("reqscorelist");
+					try {
+						Thread.sleep(500);
+						//Wait for Score Arrive
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+					List<String> list = gc.getScoreList();	
+					ld.addAll(list);
 				}
 				catch (IOException ex)  {
 					JFrame error = new JFrame("ERROR");
@@ -304,11 +331,13 @@ public class Controller extends JFrame{
 		scoreView.setText(""+board.score);
 		super.paint(g);
 	}
+	
+	
 
 	public static void main(String[] args){
 	
 		
-			Controller ctrl = new Controller();
+		Controller ctrl = new Controller();
 		
 		
 	}

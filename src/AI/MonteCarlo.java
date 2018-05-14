@@ -12,7 +12,7 @@ import java.util.concurrent.Future;
 import MODEL.GameBoard;
 
 
-public class MonteCarloAI implements Agent{
+public class MonteCarlo implements Algorithm{
 
 	Random rand = new Random();
 	

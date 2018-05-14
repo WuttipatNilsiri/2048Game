@@ -5,14 +5,17 @@ import java.util.*;
 
 import com.esotericsoftware.kryonet.*;
 
+import MODEL.ScoreDataCom;
+
 
 
 public class ScoreServer {
 	
-	public List<String> scoreLog;
-	public Map<String,String> scoreLogMapping;
-	public Server server;
-	public List<Connection> connection_ls;
+	private List<String> scoreLog;
+	private Map<String,String> scoreLogMapping;
+	private Server server;
+	private List<Connection> connection_ls;
+	private ScoreDataCom com = new ScoreDataCom();
 	/**
 	 * init Server
 	 */
@@ -76,7 +79,7 @@ public class ScoreServer {
 						listtosend.add(s + " Score: " + scoreLogMapping.get(s));
 					}
 //					listtosend.addAll(scoreLog);
-
+					listtosend.sort(com);
 					arg0.sendTCP(listtosend);
 				}
 				else {
