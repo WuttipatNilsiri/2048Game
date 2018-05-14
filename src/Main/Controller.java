@@ -54,33 +54,34 @@ public class Controller extends JFrame{
 		
 		GameBoardUI gameBoard = new GameBoardUI(board);
 		gameBoard.addCollroller(this);
+		
 		ld = new LeaderBoardUI();
 		gc = new GameClient();
 		ld.init();
 		
-		
-		
-//		gc.connect("127.0.0.1", 54334);
-		
 		final AI ai = new AI(new MonteCarlo());
+		
 		setFocusable(true);
 		setResizable(false);
+		
 		JPanel topPanel = new JPanel();
 		JPanel scorePanel = new JPanel();
 		scoreView = new JTextField();
 		JLabel scoreLabel = new JLabel();
 		scoreLabel.setText("Score");
-//		scoreLabel.setEditable(false);
+
 		scoreView.setHorizontalAlignment(JTextField.RIGHT);
 		scoreView.setPreferredSize( new Dimension( 100, 24 ) );
 		scoreView.setEditable(false);
+		
 		scorePanel.add(scoreLabel);
 		scorePanel.add(scoreView);
+		
 		JButton scoreSendButton = new JButton("Send");
 		scoreSendButton.setEnabled(false);
+		
 		JTextField _name = new JTextField();
 		_name.setPreferredSize( new Dimension( 100, 24 ) );
-		
 		_name.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -114,55 +115,23 @@ public class Controller extends JFrame{
 				
 			}
 		});
+		
 		scorePanel.add(_name);
 		scorePanel.add(scoreSendButton);
+		
 		final JButton hint = new JButton("Need Help?");
-		final JButton scoreBoard = new JButton("Score Board");
+		
+		final JButton scoreBoard = new JButton("Score Board");		
 		scoreBoard.setEnabled(false);
-//		final JButton back = new JButton("Back to Main");
-		
-//		back.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				Main main = new Main();
-//				main.start(stage);
-//			}
-//		});
-
-		
 		scoreBoard.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				gc.sendMessage("reqscorelist");
-//				List<String> list = gc.getScoreList();
-////				LeaderBoardUI ld = new LeaderBoardUI();
-//				if (list.size() > 1) {
-//					list.sort(new ScoreDataCom());
-//				}
-//				ld.addAll(list);
+
 				ld.setVisible(true);
-				
-//				gc.sendMessage("REQSCORELIST");
-//		        try {
-//		        	Parent root = (Parent) FXMLLoader.load(getClass().getResource("LeaderBoardUI.fxml"));
-//					Scene scene = new Scene(root);
-//					Stage stage = new Stage();
-//					stage.setScene(scene);
-//					stage.sizeToScene();
-//					stage.show();
-////					((Node)(e.getSource())).getScene().getWindow().hide();
-//		        }
-//		        catch(Exception ex) {
-//					System.out.println("Exception creating scene: " + ex.getMessage());
-//				}
-				 //gc.sendMessage("reqscore");
-				 //requestFocus();
+
 			}
 		});		
 		
-		
-
 		hint.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -212,11 +181,7 @@ public class Controller extends JFrame{
 		
 		topPanel.add(hint);
 		topPanel.add(airun);
-		topPanel.add(scoreBoard);
-
-//		topPanel.add(back);
-
-		
+		topPanel.add(scoreBoard);		
 		
 		gameBoard.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -271,8 +236,9 @@ public class Controller extends JFrame{
 		connectResult.setPreferredSize( new Dimension( 100, 24 ) );
 		connectResult.setEditable(false);
 		iptext.setPreferredSize( new Dimension( 100, 24 ) );
-		JButton button = new JButton("Connect");
-		button.addActionListener(new ActionListener() {
+		
+		JButton connect = new JButton("Connect");
+		connect.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -308,15 +274,18 @@ public class Controller extends JFrame{
 			}
 			
 		});
+		
 		ippanel.add(iptext);
-		ippanel.add(button);
+		ippanel.add(connect);
 		ippanel.add(connectResult,BorderLayout.SOUTH);
+		
 		JPanel south = new JPanel();
 		south.setPreferredSize(new Dimension(100, 100));
 		south.add(scorePanel,BorderLayout.NORTH);
 		south.add(ippanel, BorderLayout.CENTER);
 		add(south, BorderLayout.SOUTH);
 		add(gameBoard);
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		pack();
@@ -335,10 +304,7 @@ public class Controller extends JFrame{
 	
 
 	public static void main(String[] args){
-	
-		
 		Controller ctrl = new Controller();
-		
-		
 	}
+	
 }

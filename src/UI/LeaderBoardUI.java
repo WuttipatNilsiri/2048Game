@@ -10,17 +10,22 @@ import javax.swing.*;
 
 
 public class LeaderBoardUI extends JFrame {
-	DefaultListModel<String> listModel =  new DefaultListModel<String>();
-	JList<String> list = new JList<String>(listModel);
-//	String[] columnNames = {"Name","Score"};
-//	
-//	JTable table = new JTable()
+	
+	private DefaultListModel<String> listModel;
+	private JList<String> list;
+
+	
+	public LeaderBoardUI() {
+		listModel =  new DefaultListModel<String>();
+		list = new JList<String>(listModel);
+
+	}
 	/**
 	 * add All of list 
 	 * @param l
 	 */
 	public void addAll(List<String> l) {
-//		DefaultListModel<String> listModel =  new DefaultListModel<String>();
+
 		listModel.clear();
 		for (String s : l) {
 			listModel.addElement(s);
@@ -33,24 +38,9 @@ public class LeaderBoardUI extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(200,550));
 		list.setPreferredSize(new Dimension(200,500));
-//		JButton button = new JButton("refresh");
-//		button.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				Controller.getGC().sendMessage("reqscorelist");
-//				List<String> list = Controller.getGC().getScoreList();	
-//				addAll(list);
-//				
-//			}
-//		});
-//		JPanel toppanel = new JPanel();
-		
-		
 		
 		JLabel label = new JLabel("Score Board");
-//		toppanel.add(label,BorderLayout.EAST);
-//		toppanel.add(button,BorderLayout.WEST);
+
 		setTitle("Score Board");
 		label.setPreferredSize(new Dimension(200,50));
 		panel.add(label,BorderLayout.NORTH);
