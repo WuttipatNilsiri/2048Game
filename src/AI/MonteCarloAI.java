@@ -66,7 +66,12 @@ public class MonteCarloAI implements Agent{
 	    simulation = roundPlayed / 16 + 1024;
 		return best;
 	}
-
+	/**
+	 * evalMove with @param b
+	 * @param b
+	 * @param move
+	 * @return eval value
+	 */
 	private int evalMove(GameBoard b, int move) {
 		GameBoard movedBoard = new GameBoard(b);
 		movedBoard.makeMove(move);

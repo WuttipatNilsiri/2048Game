@@ -11,6 +11,9 @@ public class GameClient {
     
     private Client client; 
     List<String> scorelist = new ArrayList<String>();
+    /**
+     * initial Game Client
+     */
     public GameClient() {
       
         client = new Client();
@@ -18,7 +21,9 @@ public class GameClient {
         client.getKryo().register(Message.class);
         client.getKryo().register(ArrayList.class);
     }
-
+    /**
+     * ClientL Listener if have event with client 
+     */
     class ClientLisntener extends Listener {
     	@Override
     	public void connected(Connection arg0) {
@@ -44,17 +49,28 @@ public class GameClient {
     		}
     	}
     }
-    
+    /**
+     * send Message to Server
+     * @param text
+     */
     public void sendMessage(String text) {
     	Message msg = new Message();
     	msg.text = text;
     	client.sendTCP(msg);
     }
-    
+    /**
+     * get Score List out of Client
+     * @return
+     */
     public List<String> getScoreList(){
     	return scorelist;
     }
-    
+    /**
+     * connect to ip with port
+     * @param ip
+     * @param port
+     * @throws IOException
+     */
     public void connect(String ip,int port) throws IOException {
     	client.start();
         client.connect(5000, ip, port);

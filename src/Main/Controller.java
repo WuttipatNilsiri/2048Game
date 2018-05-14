@@ -45,7 +45,9 @@ public class Controller extends JFrame{
 	List<String> scoreLog = new ArrayList<String>();
 	
 	public boolean isSend = false;
-	
+	/**
+	 * initial Controller 
+	 */
 	public Controller() {
 		
 		GameBoardUI gameBoard = new GameBoardUI(board);
@@ -289,7 +291,9 @@ public class Controller extends JFrame{
 
 	}
 	
-	
+	/**
+	 * repaint Controller
+	 */
 	public void paint(Graphics g){
 		setTitle("2048 - Score "+board.score);
 		scoreView.setText(""+board.score);

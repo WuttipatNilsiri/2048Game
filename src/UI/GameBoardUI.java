@@ -56,11 +56,17 @@ public class GameBoardUI extends JComponent{
 	};
 
 	static final Color FONT_COLOR = new Color(0x806E85);
-	
+	/**
+	 * make UI know Collroller
+	 * @param c
+	 */
 	public void addCollroller(Controller c) {
 		ctrl = c;
 	}
-
+	/**
+	 * init BoardUI
+	 * @param b
+	 */
 	public GameBoardUI(GameBoard b)
 	{
 		board = b;

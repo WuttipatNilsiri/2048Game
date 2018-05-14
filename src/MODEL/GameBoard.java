@@ -47,11 +47,15 @@ public class GameBoard {
 	};
 
 	Random rand = new Random();
-
+	/**
+	 * Initial GameBoard
+	 */
 	public GameBoard(){
 		startGame();
 	}
-	
+	/**
+	 * Start Game 
+	 */
 	public void startGame() {
 		if (state != State.running) {
 			score = 0;
@@ -61,19 +65,30 @@ public class GameBoard {
 			generateRandomly();
 		}
 	}
-
+	/**
+	 * Initial GameBoard by GameBoard
+	 * @param b
+	 */
 	public GameBoard(GameBoard b){
 		board = ArraysTool.dup(b.board);
 	}
-
+	/**
+	 * Initial GameBoard by int[][]
+	 * @param b
+	 */
 	public GameBoard(int[][] b){
 		board = b;
 	}
-
+	/**
+	 * Copy the Board
+	 * @param b
+	 */
 	public void copyFrom(GameBoard b){
 		ArraysTool.destoryDup(b.board, board);
 	}
-
+	/**
+	 * to Know space
+	 */
 	public void getSpareSpace(){
 		xline.clear();
 		yline.clear();
@@ -86,7 +101,9 @@ public class GameBoard {
 			}
 		}
 	}
-
+	/**
+	 * gen tile 2 or 4 in some space
+	 */
 	public void generateRandomly() {
 		getSpareSpace();
 		if(xline.isEmpty()){
@@ -285,6 +302,11 @@ public class GameBoard {
 		return false;
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * check move that able to perform or not ?
+	 * @param index : move
+	 * @return it can do ?
+	 */
 	public boolean canDo(int index){
 		switch(index){
 		case UP: return canUp();
@@ -294,7 +316,10 @@ public class GameBoard {
 		default: throw new UnsupportedOperationException();
 		}
 	}
-
+	/**
+	 * perform that move
+	 * @param index : move
+	 */
 	public void makeMove(int index){
 		switch(index){
 		case UP: up(); break;
@@ -304,7 +329,10 @@ public class GameBoard {
 		default: throw new UnsupportedOperationException();
 		}
 	}
-
+	/**
+	 * to know Possible move
+	 * @return list of Possible move
+	 */
 	public List<Integer> getPossibleMoves(){
 		possibleMove.clear();
 		if(canUp())
@@ -318,19 +346,35 @@ public class GameBoard {
 		return possibleMove;
 	}
 
-
+	/**
+	 * put tile
+	 * @param x : index of colum
+	 * @param y : index of row
+	 * @param i : value
+	 */
 	public void putTile(int x, int y, int i) {
 		board[y][x] = i;
 	}
-
+	/**
+	 * get value of tile
+	 * @param x : index of colum
+	 * @param y : index of row
+	 * @return value
+	 */
 	public int getTile(int x, int y){
 		return board[y][x];
 	}
-	
+	/**
+	 * set state to board
+	 * @param state
+	 */
 	public void setState(State state) {
 		this.state = state;
 	}
-	
+	/**
+	 * to know state
+	 * @return
+	 */
 	public State getState() {
 		return state;
 	}

@@ -13,7 +13,9 @@ public class ScoreServer {
 	public Map<String,String> scoreLogMapping;
 	public Server server;
 	public List<Connection> connection_ls;
-	
+	/**
+	 * init Server
+	 */
 	public ScoreServer() {
 		scoreLog = new ArrayList<String>();
 		scoreLogMapping = new HashMap<String,String>();
@@ -23,13 +25,19 @@ public class ScoreServer {
 		server.getKryo().register(ArrayList.class);
 		server.addListener(new ServerListner());
 	}
-	
+	/**
+	 * start with port
+	 * @param port
+	 * @throws IOException
+	 */
 	public void start(int port) throws IOException {
 		server.start();
 		server.bind(port);
 		System.out.println("SV Starting with " + port + " port");
 	}
-	
+	/**
+     * Server Listener if have event with Server 
+     */
 	class ServerListner extends Listener {
 		
 		@Override

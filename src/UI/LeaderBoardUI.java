@@ -11,6 +11,10 @@ public class LeaderBoardUI extends JFrame {
 //	String[] columnNames = {"Name","Score"};
 //	
 //	JTable table = new JTable()
+	/**
+	 * add All of list 
+	 * @param l
+	 */
 	public void addAll(List<String> l) {
 		DefaultListModel<String> listModel =  new DefaultListModel<String>();
 		for (String s : l) {

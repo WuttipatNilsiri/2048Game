@@ -97,7 +97,11 @@ public class TileUI extends JComponent{
 			(5, 5, 90, 90, 5, 5);
 		}
 	}
-	
+	/**
+	 * put tile at x y
+	 * @param x
+	 * @param y
+	 */
 	public void tilePos(int x, int y){
 		setLocation(100*x, 100*y);
 	}
