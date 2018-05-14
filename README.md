@@ -17,6 +17,10 @@
 * **Graphical UI** - JavaSwing
 * **Server** - Kyronet
 * **MultiThreading** - TheadPool
+
+## Looking for Wiki?
+https://github.com/WuttipatNilsiri/2048Game/wiki
+
 ## Developers 
 1. Wuttipat Nilsiri 5910545850
 2. Poorin Pichayamongkol 5910545809
