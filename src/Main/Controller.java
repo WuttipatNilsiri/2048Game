@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -20,12 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import AI.AI;
-import AI.Agent;
 import AI.MonteCarlo;
-import AI.MonteCarloAI;
+
 
 import MODEL.GameBoard;
-import MODEL.ScoreDataCom;
 import MODEL.State;
 import SERVER.GameClient;
 import UI.GameBoardUI;
@@ -107,7 +104,15 @@ public class Controller extends JFrame{
 					Thread.sleep(500);
 					//Wait for Score Arrive
 				} catch (InterruptedException e1) {
-					e1.printStackTrace();
+					JFrame error = new JFrame("ERROR");
+					JPanel text = new JPanel();
+					JLabel textlable = new JLabel();
+					textlable.setText(e1.getMessage());
+					textlable.setPreferredSize(new Dimension(250, 50));
+					text.add(textlable);
+					error.add(text);
+					error.setVisible(true);
+					error.pack();
 				}
 				List<String> list = gc.getScoreList();	
 				ld.addAll(list);
@@ -252,7 +257,15 @@ public class Controller extends JFrame{
 						Thread.sleep(500);
 						//Wait for Score Arrive
 					} catch (InterruptedException e1) {
-						e1.printStackTrace();
+						JFrame error = new JFrame("ERROR");
+						JPanel text = new JPanel();
+						JLabel textlable = new JLabel();
+						textlable.setText(e1.getMessage());
+						textlable.setPreferredSize(new Dimension(250, 50));
+						text.add(textlable);
+						error.add(text);
+						error.setVisible(true);
+						error.pack();
 					}
 					List<String> list = gc.getScoreList();	
 					ld.addAll(list);

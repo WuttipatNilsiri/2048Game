@@ -1,5 +1,6 @@
 package AI;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,6 +9,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import MODEL.GameBoard;
 
@@ -53,7 +58,15 @@ public class MonteCarlo implements Algorithm{
 				try {
 					score += f.get();
 				} catch (InterruptedException | ExecutionException e) {
-					e.printStackTrace();
+					JFrame error = new JFrame("ERROR");
+					JPanel text = new JPanel();
+					JLabel textlable = new JLabel();
+					textlable.setText(e.getMessage());
+					textlable.setPreferredSize(new Dimension(250, 50));
+					text.add(textlable);
+					error.add(text);
+					error.setVisible(true);
+					error.pack();
 				}
 			}
 			if(score > bestScore){
